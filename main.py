@@ -27,18 +27,58 @@ hourly = data["hourly"]
 twelve_hour = hourly[:12]
 id_list = [condition["id"] for hour in twelve_hour for condition in hour["weather"]]
 
-bring_umbrella = False
+# 6xx = Snow
+# 5xx = Rain
+# 3xx = Drizzle
+# 2xx = Thunderstorm
+
+snow = False
+rain = False
+drizzle = False
+thunderstorm = False
 for code in id_list:
-    if code < 700:
-        bring_umbrella = True
+    if 600 <= code < 700:
+        snow = True
+    elif 500 <= code < 600:
+        rain = True
+    elif 300 <= code < 400:
+        drizzle = True
+    elif 200 <= code < 300:
+        thunderstorm = True
 
 
-if bring_umbrella:
+if snow:
     client = Client(account_sid, auth_token)
     message = client.messages.create(
-        body="It's going to rain today. Remember to bring an umbrella!",
+        body="Forecast says it's going to snow today. Remember to dress warm when going out!",
+        from_="+13465455630",
+        to="+15875012008",
+    )
+    print(message.status)
+elif rain:
+    client = Client(account_sid, auth_token)
+    message = client.messages.create(
+        body="Forecast says it's going to rain today. Remember to bring an umbrella!",
+        from_="+13465455630",
+        to="+15875012008",
+    )
+    print(message.status)
+elif drizzle:
+    client = Client(account_sid, auth_token)
+    message = client.messages.create(
+        body="Forecast says it's going to slightly drizzle today. Remember to bring an umbrella!",
+        from_="+13465455630",
+        to="+15875012008",
+    )
+    print(message.status)
+elif thunderstorm:
+    client = Client(account_sid, auth_token)
+    message = client.messages.create(
+        body="There's going to be a thunderstorm today. Be careful out there!",
         from_="+13465455630",
         to="+15875012008",
     )
 
     print(message.status)
+else:
+    print("No current weather condition to report")
