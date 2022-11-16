@@ -5,8 +5,8 @@ from twilio.rest import Client
 
 url = "https://api.openweathermap.org/data/2.5/onecall?"
 api_key = os.environ.get("OWN_API_KEY")
-LAT = 39.338711
-LNG = -74.481194
+LAT = 53.544388
+LNG = -113.490929
 account_sid = os.environ.get("ACCOUNT_SID")
 auth_token = os.environ.get("AUTH_TOKEN")
 
